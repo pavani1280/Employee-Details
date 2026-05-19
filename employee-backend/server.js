@@ -21,7 +21,12 @@ app.use("/employee-api", employeeApp);
 //DB connection
 const connectDB = async () => {
   try {
-    await connect(process.env.DB_URL);
+    if (!process.env.DB_URL) {
+      throw new Error("DB_URL is not configured in environment variables.");
+    }
+    await connect(process.env.DB_URL, {
+      serverSelectionTimeoutMS: 10000,
+    });
     console.log("DB connected");
     app.listen(port, () => console.log(`server listening on port ${port}..`));
   } catch (err) {
