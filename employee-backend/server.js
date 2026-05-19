@@ -10,7 +10,7 @@ const port = process.env.PORT || 4000;
 //add cors middleware
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173","https://employee-details-beta.vercel.app"],
   }),
 );
 //body parser middleware
