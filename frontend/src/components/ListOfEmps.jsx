@@ -15,7 +15,7 @@ function ListOfEmps() {
   }
   //delete emp
   const deleteEmpById=async (id)=>{
-    let res=await axios.delete(`http://localhost:4000/employee-api/employees/${id}`)
+    let res=await axios.delete(`https://employee-details-o5ok.onrender.com/employee-api/employees/${id}`)
     if(res.status===200){
       //get latest emps data
       getEmps();
@@ -23,7 +23,7 @@ function ListOfEmps() {
   }
   //get all employees
   async function getEmps() {
-      let res = await axios.get("http://localhost:4000/employee-api/employees");
+      let res = await axios.get("https://employee-details-o5ok.onrender.com/employee-api/employees");
       if (res.status === 200) {
         let resObj =  res.data;
         setEmps(resObj.payload);
