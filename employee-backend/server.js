@@ -3,7 +3,7 @@ import { connect } from "mongoose";
 import { employeeApp } from "./API/empApp.js";
 import cors from "cors";
 import { config } from "dotenv";
-config();
+config({ path: ".env" });
 
 const app = exp();
 const port = process.env.PORT || 4000;
@@ -21,11 +21,14 @@ app.use("/employee-api", employeeApp);
 //DB connection
 const connectDB = async () => {
   try {
-    if (!process.env.DB_URL) {
+    const dbUrl = process.env.DB_URL?.trim();
+    if (!dbUrl) {
       throw new Error("DB_URL is not configured in environment variables.");
     }
-    await connect(process.env.DB_URL, {
+    await connect(dbUrl, {
       serverSelectionTimeoutMS: 10000,
+      connectTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
     });
     console.log("DB connected");
     app.listen(port, () => console.log(`server listening on port ${port}..`));
